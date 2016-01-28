@@ -1,0 +1,77 @@
+搭建redis集群
+
+mkdir redis
+
+cd redis
+
+
+wget http://download.redis.io/releases/redis-3.0.1.tar.gz
+
+
+tar -xvf redis-3.0.1.tar.gz
+
+cd redis-3.0.1
+
+make
+
+make install
+
+
+yum install ruby
+
+
+yum install rubygems
+
+
+gem install redis --version 3.2.1 如果下载不下来（大多数情况下载不下来，这就是中国。。。），到网上找一个下载执行 gem install -l ./redis-3.2.1.gem
+
+//需要的权限（如果root用户就不需要这段了）
+
+
+chgrp -R egls /usr/local/bin/
+
+chown -R eglsgamezj /usr/local/bin/
+
+chgrp -R egls /var/run/
+
+chown -R eglsgamezj /var/run/
+
+chgrp -R egls /etc/yum/
+
+chown -R eglsgamezj /etc/yum/vi redis.conf
+
+修改配置文件中的下面选项
+
+pidfile redis-7000.pid
+
+port 7000
+
+dbfilename dump-7000.rdb
+
+appendfilename "appendonly-7000.aof"
+
+daemonize yes
+
+cluster-enabled yes
+
+cluster-config-file nodes-7000.conf
+
+cluster-node-timeout 5000
+
+appendonly yes
+
+logfile "./redislog/redis7000.log"
+
+NOTE:如果一台物理机上启动多个redis实例，需要将 pidfile，dbfilename ，appendfilename ,cluster-config-file ,logfile 这些路径相关的分开配置
+
+
+开启iptables的时候需要把端口号以及端口号+10000（集群内部使用端口）都开放，不然集群连接不上
+
+第一次创建集群（成功后以后不用执行）
+
+cd /usr/local/redis3.0/src
+
+./redis-trib.rb create --replicas 1 ip:port ip:port ip:port ip:port ip:port ip:port
+
+==================================================================================================[编辑]
+注意事项： 1.配置集群时，不要使用127.0.0.1这样的回环ip
