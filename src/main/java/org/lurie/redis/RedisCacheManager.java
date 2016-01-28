@@ -49,7 +49,7 @@ public class RedisCacheManager {
 		}
 	}
 
-	protected RedisCacheTask waitingForTask() throws InterruptedException {
+	protected RedisCacheTask getTask() throws InterruptedException {
 		synchronized (tasks) {
 			RedisCacheTask task = tasks.poll();
 			return task;

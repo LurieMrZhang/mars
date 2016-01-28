@@ -23,8 +23,8 @@ public class RedisCacheTaskProcessor implements Runnable {
 			RedisCacheTask task = null;
 			boolean ret = false;
 			try {
-				connectJedis();
-				task = RedisCacheManager.getInstance().waitingForTask();
+				connectRedis();
+				task = RedisCacheManager.getInstance().getTask();
 				if (task != null) {
 					ret = task.process(jedis);
 				}
@@ -38,7 +38,7 @@ public class RedisCacheTaskProcessor implements Runnable {
 		}
 	}
 
-	private void connectJedis() throws Exception {
+	private void connectRedis() throws Exception {
 		String server = RedisCacheManager.getInstance().getServer();
 		int port = RedisCacheManager.getInstance().getPort();
 		try {
