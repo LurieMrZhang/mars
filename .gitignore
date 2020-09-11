@@ -1,2 +1,13 @@
 /target/
 /doc/
+/.idea/.gitignore
+/.idea/compiler.xml
+/.idea/encodings.xml
+/.idea/jarRepositories.xml
+/mars.iml
+/.idea/libraries/Maven__junit_junit_3_8_1.xml
+/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_3.xml
+/.idea/libraries/Maven__redis_clients_jedis_2_7_2.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
